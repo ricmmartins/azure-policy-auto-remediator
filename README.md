@@ -7,6 +7,7 @@ By leveraging Azure native services (Policy, Event Grid, Functions, Managed Iden
 
 ## 📂 Repository structure
 
+```
 📦 azure-policy-auto-remediator
 ├── 📁 .github
 │ └── PULL_REQUEST_TEMPLATE.md
@@ -23,7 +24,7 @@ By leveraging Azure native services (Policy, Event Grid, Functions, Managed Iden
 ├── CONTRIBUTING.md
 ├── DEPLOY.md
 ├── README.md
-
+```
 
 ## 📦 What's included
 
