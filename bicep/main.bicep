@@ -29,6 +29,7 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
   properties: {
     reserved: true
     serverFarmId: appServicePlan.id
+    httpsOnly: true
     siteConfig: {
       linuxFxVersion: 'Python|3.10'
       appSettings: [
@@ -39,7 +40,6 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
     }
   }
 }
-
 
 // NOTE: Event Grid subscription removed due to function endpoint dependency.
 // After publishing the function, create Event Grid subscription manually using CLI.
