@@ -47,7 +47,7 @@ This will deploy:
 - Managed Identity (Policy Insights Contributor role)
 
 ```bash
-az deployment sub create --location eastus --template-file ./bicep/main.bicep
+az deployment sub create --location eastus --template-file /bicep/main.bicep
 ```
 
 > [!NOTE]
