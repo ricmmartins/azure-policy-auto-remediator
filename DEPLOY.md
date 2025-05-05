@@ -17,7 +17,7 @@ Make sure you have the following:
 
 ## Deployment Steps
 
-### 1 Prepare your working folder
+### 1. Prepare your working folder
 
 Download and unzip the repository ZIP (or clone the repo):
 
