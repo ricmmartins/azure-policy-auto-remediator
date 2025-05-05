@@ -47,7 +47,8 @@ This will deploy:
 - Managed Identity (Policy Insights Contributor role)
 
 ```bash
-az deployment sub create --location eastus --template-file /bicep/main.bicep
+az group create --name my-policy-remediator --location eastus
+az deployment group create --resource-group my-policy-remediator --template-file bicep/main.bicep
 ```
 
 > [!NOTE]
