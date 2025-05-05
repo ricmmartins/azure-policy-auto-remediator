@@ -72,6 +72,35 @@ Replace <function-app-name> with the name of the deployed Function App from the 
 func azure functionapp publish <function-app-name>
 ```
 
+### 🔑 Grant Azure Policy permissions to the Function (IMPORTANT)
+
+After deploying the Azure Function, you need to grant its Managed Identity permissions to trigger remediation tasks via Azure Policy.
+
+The required role is:
+
+> **Policy Insights Data Writer (Preview)**
+
+You can assign this role using Azure CLI:
+
+```bash
+az role assignment create \
+  --assignee <function-managed-identity-object-id> \
+  --role "Policy Insights Data Writer (Preview)" \
+  --scope /subscriptions/<subscription-id>
+```
+Replace:
+
+- <function-managed-identity-object-id> → The Object (Principal) ID from the Function App → Azure Portal → Function App → Identity → Object (Principal) ID
+- <subscription-id> → Your Azure Subscription ID
+
+> [!NOTE]
+> Once this is assigned, the Azure Function can create remediation tasks securely.
+
+### Notes
+
+- The role name **Policy Insights Data Writer (Preview)** is newer and more scoped than Policy Insights Contributor → recommended going forward.
+- If missing, `az provider register --namespace Microsoft.PolicyInsights` may be needed (very rare).
+
 > [!NOTE]
 > Once published → the function is live and ready.
 
