@@ -33,26 +33,7 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
     }
   }
 }
-
-// Event Grid subscription for policy non-compliance events
-resource eventSub 'Microsoft.EventGrid/eventSubscriptions@2022-06-15' = {
-  name: 'noncompliant-event-sub'
-  scope: app
-  properties: {
-    destination: {
-      endpointType: 'AzureFunction'
-      properties: {
-        resourceId: resourceId('Microsoft.Web/sites/functions', app.name, 'RemediatePolicy')
-      }
-    }
-    filter: {
-      includedEventTypes: [
-        'Microsoft.PolicyInsights.PolicyStatesChanged'
-      ]
-    }
-    eventDeliverySchema: 'EventGridSchema'
-  }
-}
-
-// NOTE: Role assignment removed due to scope and dynamic name issues
-// Assign Policy Insights Contributor or Policy Insights Data Writer role manually after deployment
+// NOTE: Event Grid subscription removed due to function endpoint dependency.
+// After publishing the function, create Event Grid subscription manually using CLI.
+// NOTE: Role assignment removed due to scope and dynamic name issues.
+// Assign Policy Insights Contributor or Policy Insights Data Writer role manually after deployment.
