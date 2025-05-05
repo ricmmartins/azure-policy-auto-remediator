@@ -50,7 +50,9 @@ This will deploy:
 az deployment sub create --location eastus --template-file ./bicep/main.bicep
 ```
 
-- After completion, check the Azure Portal → the Function App should be visible.
+> [!NOTE]
+> After completion, check the Azure Portal → the Function App should be visible.
+
 
 ### 3. Prepare and publish Azure Function (Python)
 Navigate to the function/ folder:
@@ -70,7 +72,8 @@ Replace <function-app-name> with the name of the deployed Function App from the 
 func azure functionapp publish <function-app-name>
 ```
 
-- Once published → the function is live and ready.
+> [!NOTE]
+> Once published → the function is live and ready.
 
 ### 4. Validate Event Grid Subscription (optional)
 Azure Portal → Event Grid → Event Subscriptions →
@@ -78,7 +81,9 @@ You should see the subscription → bound to your Azure Function.
 
 Event Type Filter → Microsoft.PolicyInsights.PolicyStatesChanged
 
-- This means → Any non-compliance will now trigger the Function automatically.
+> [!NOTE]
+> This means → Any non-compliance will now trigger the Function automatically.
+
 
 ### 5. Test end-to-end (optional but recommended)
 Create and assign a DeployIfNotExists or Modify Azure Policy without creating remediation task.
@@ -87,7 +92,8 @@ Create a non-compliant resource.
 
 Within a few minutes:
 
-- The Azure Function → triggers → automatically creates remediation task.
+> [!NOTE]
+> The Azure Function → triggers → automatically creates remediation task.
 
 Check:
 
