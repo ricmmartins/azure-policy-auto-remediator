@@ -4,21 +4,28 @@ param functionAppName string = 'policy-remediator-${uniqueString(resourceGroup()
 resource sa 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: toLower('func${uniqueString(resourceGroup().id)}')
   location: location
-  sku: { name: 'Standard_LRS' }
+  sku: {
+    name: 'Standard_LRS'
+  }
   kind: 'StorageV2'
 }
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: 'asp-${uniqueString(resourceGroup().id)}'
   location: location
-  sku: { name: 'Y1', tier: 'Dynamic' }
+  sku: {
+    name: 'Y1'
+    tier: 'Dynamic'
+  }
 }
 
 resource app 'Microsoft.Web/sites@2022-09-01' = {
   name: functionAppName
   location: location
   kind: 'functionapp'
-  identity: { type: 'SystemAssigned' }
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     serverFarmId: appServicePlan.id
     siteConfig: {
@@ -31,22 +38,25 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
   }
 }
 
+// Event Grid subscription for policy non-compliance events
 resource eventSub 'Microsoft.EventGrid/eventSubscriptions@2022-06-15' = {
   name: 'noncompliant-event-sub'
   scope: subscription()
   properties: {
-    destination: { endpointType: 'AzureFunction', properties: { resourceId: app.id } }
-    filter: { includedEventTypes: [ 'Microsoft.PolicyInsights.PolicyStatesChanged' ] }
+    destination: {
+      endpointType: 'AzureFunction'
+      properties: {
+        resourceId: app.id
+      }
+    }
+    filter: {
+      includedEventTypes: [
+        'Microsoft.PolicyInsights.PolicyStatesChanged'
+      ]
+    }
     eventDeliverySchema: 'EventGridSchema'
   }
 }
 
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(app.identity.principalId, 'PolicyInsightsContributor')
-  scope: subscription()
-  properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '1c0163c0-47e6-4577-8991-ea5c82e286e4')
-    principalId: app.identity.principalId
-    principalType: 'ServicePrincipal'
-  }
-}
+// NOTE: Role assignment removed due to scope and dynamic name issues
+// Assign Policy Insights Contributor or Policy Insights Data Writer role manually after deployment
