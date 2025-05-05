@@ -41,7 +41,7 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
 // Event Grid subscription for policy non-compliance events
 resource eventSub 'Microsoft.EventGrid/eventSubscriptions@2022-06-15' = {
   name: 'noncompliant-event-sub'
-  scope: subscription()
+  scope: app
   properties: {
     destination: {
       endpointType: 'AzureFunction'
