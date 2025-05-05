@@ -7,24 +7,22 @@ By leveraging Azure native services (Policy, Event Grid, Functions, Managed Iden
 
 ## 📂 Repository structure
 
-```
 📦 azure-policy-auto-remediator
 ├── 📁 .github
-│ └── PULL_REQUEST_TEMPLATE.md
+│   ├── PULL_REQUEST_TEMPLATE.md
 ├── 📁 bicep
-│ └── main.bicep
+│   └── main.bicep
 ├── 📁 function
-│ ├── requirements.txt
-│ ├── host.json
-│ └── 📁 RemediatePolicy
-│ ├── init.py
-│ └── function.json
+│   ├── requirements.txt
+│   ├── host.json
+│   └── 📁 RemediatePolicy
+│       ├── __init__.py
+│       └── function.json
 ├── .gitignore
 ├── .gitattributes
 ├── CONTRIBUTING.md
 ├── DEPLOY.md
 ├── README.md
-```
 
 ## 📦 What's included
 
