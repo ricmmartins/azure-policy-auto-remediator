@@ -22,7 +22,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
 resource app 'Microsoft.Web/sites@2022-09-01' = {
   name: functionAppName
   location: location
-  kind: 'functionapp,linux'
+  kind: 'functionapp'
   identity: {
     type: 'SystemAssigned'
   }
@@ -31,8 +31,7 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     siteConfig: {
-      linuxFxVersion: ''
-      appSettings: [{ name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob }, { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }, { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }]
+      appSettings: [{ name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob }, { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }, { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'powershell' }]
     }
   }
 }
