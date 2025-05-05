@@ -22,17 +22,25 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
 resource app 'Microsoft.Web/sites@2022-09-01' = {
   name: functionAppName
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
   identity: {
     type: 'SystemAssigned'
   }
   properties: {
+    reserved: true
     serverFarmId: appServicePlan.id
     siteConfig: {
-      appSettings: [{ name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob }, { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }, { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }]
+      linuxFxVersion: 'Python|3.10'
+      appSettings: [
+        { name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob },
+        { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' },
+        { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
+      ]
     }
   }
 }
+
+
 // NOTE: Event Grid subscription removed due to function endpoint dependency.
 // After publishing the function, create Event Grid subscription manually using CLI.
 // NOTE: Role assignment removed due to scope and dynamic name issues.
