@@ -6,7 +6,7 @@ This solution helps customers and cloud teams eliminate the manual work of creat
 By leveraging Azure native services (Policy, Event Grid, Functions, Managed Identity), the solution creates remediation tasks in real time and keeps your environment aligned with governance and security baselines.
 
 ## 📂 Repository structure
-
+```
 📦 azure-policy-auto-remediator
 ├── 📁 .github
 │   ├── PULL_REQUEST_TEMPLATE.md
@@ -23,7 +23,7 @@ By leveraging Azure native services (Policy, Event Grid, Functions, Managed Iden
 ├── CONTRIBUTING.md
 ├── DEPLOY.md
 ├── README.md
-
+```
 ## 📦 What's included
 
 - **Bicep templates** → Deploy Azure infrastructure
