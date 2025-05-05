@@ -29,12 +29,13 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     siteConfig: {
-      appSettings: [
-        { name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob },
-        { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' },
-        { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
-      ]
-    }
+  appSettings: [
+    { name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob },
+    { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' },
+    { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
+  ]
+}
+
   }
 }
 
