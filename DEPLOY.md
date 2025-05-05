@@ -90,8 +90,8 @@ az role assignment create \
 ```
 Replace:
 
-- <function-managed-identity-object-id> → The Object (Principal) ID from the Function App → Azure Portal → Function App → Identity → Object (Principal) ID
-- <subscription-id> → Your Azure Subscription ID
+- function-managed-identity-object-id → The Object (Principal) ID from the Function App → Azure Portal → Function App → Identity → Object (Principal) ID
+- subscription-id → Your Azure Subscription ID
 
 > [!NOTE]
 > Once this is assigned, the Azure Function can create remediation tasks securely.
