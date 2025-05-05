@@ -31,7 +31,7 @@ resource app 'Microsoft.Web/sites@2022-09-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     siteConfig: {
-      appSettings: [{ name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob }, { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }, { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'powershell' }]
+      appSettings: [{ name: 'WEBSITE_RUN_FROM_PACKAGE', value: '1' },{ name: 'AzureWebJobsStorage', value: sa.properties.primaryEndpoints.blob }, { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }, { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'powershell' }]
     }
   }
 }
