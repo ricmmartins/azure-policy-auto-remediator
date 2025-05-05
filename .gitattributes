@@ -1,0 +1,3 @@
+* text=auto
+*.bicep linguist-language=Bicep
+*.py linguist-language=Python

@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+local.settings.json
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+*.tfstate
+.terraform/
+*.egg-info/
