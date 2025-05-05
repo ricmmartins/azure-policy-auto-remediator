@@ -42,7 +42,7 @@ resource eventSub 'Microsoft.EventGrid/eventSubscriptions@2022-06-15' = {
     destination: {
       endpointType: 'AzureFunction'
       properties: {
-        resourceId: app.id
+        resourceId: resourceId('Microsoft.Web/sites/functions', app.name, 'RemediatePolicy')
       }
     }
     filter: {
