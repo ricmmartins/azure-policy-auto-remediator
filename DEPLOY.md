@@ -1,30 +1,27 @@
-# Deployment Guide
+# 🚀 Step-by-Step Guide — Deploy Azure Policy Auto Remediator
+
+This guide walks you through deploying and running the Azure Policy Auto Remediator in your Azure environment.
+
+---
 
 ## Prerequisites
 
-- Azure Subscription
-- Azure CLI installed
-- Python 3.8+ and virtualenv
-- Azure Functions Core Tools
+Make sure you have the following:
 
-## Deploy
+- Azure Subscription (Owner or Contributor + User Access Administrator roles)
+- [Azure CLI installed](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) and logged in
+- Python 3.8+ installed + virtualenv
+- [Azure Functions Core Tools installed](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local) (optional but recommended)
 
-### Deploy Azure infra
+---
+
+## Deployment Steps
+
+### 1 Prepare your working folder
+
+Download and unzip the repository ZIP (or clone the repo):
 
 ```bash
-az deployment sub create --location eastus --template-file ./bicep/main.bicep
+unzip azure-policy-auto-remediator.zip
+cd azure-policy-auto-remediator
 ```
-
-### Publish Azure Function
-
-```bash
-cd function
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-func azure functionapp publish <function-app-name>
-```
-
-## Validate
-
-- Check Azure Portal → Policy → Remediation tasks
