@@ -25,3 +25,15 @@ Download and unzip the repository ZIP (or clone the repo):
 unzip azure-policy-auto-remediator.zip
 cd azure-policy-auto-remediator
 ```
+
+You should see this structure
+
+```
+📦 azure-policy-auto-remediator
+├── .github/
+├── bicep/
+├── function/
+├── CONTRIBUTING.md
+├── DEPLOY.md
+├── README.md
+```
