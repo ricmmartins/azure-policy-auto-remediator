@@ -1,4 +1,5 @@
 {
+  "scriptFile": "run.ps1",
   "bindings": [
     {
       "name": "eventGridEvent",
