@@ -43,7 +43,6 @@ This will deploy:
 
 - Storage Account (Function backend)
 - Azure Function (empty at first)
-- Event Grid Subscription (Policy NonCompliance trigger)
 - Managed Identity (Policy Insights Contributor role)
 
 ```bash
@@ -73,7 +72,7 @@ Replace <function-app-name> with the name of the deployed Function App from the 
 func azure functionapp publish <function-app-name>
 ```
 
-### 🔑 Grant Azure Policy permissions to the Function (IMPORTANT)
+### 4. 🔑 Grant Azure Policy permissions to the Function (IMPORTANT)
 
 After deploying the Azure Function, you need to grant its Managed Identity permissions to trigger remediation tasks via Azure Policy.
 
@@ -97,33 +96,39 @@ Replace:
 > [!NOTE]
 > Once this is assigned, the Azure Function can create remediation tasks securely.
 
-### Notes
+### 5. Create Event Grid Subscription (MANUAL STEP - after Function is published)
 
-- The role name **Policy Insights Data Writer (Preview)** is newer and more scoped than Policy Insights Contributor → recommended going forward.
-- If missing, `az provider register --namespace Microsoft.PolicyInsights` may be needed (very rare).
+After the Azure Function is published (RemediatePolicy function exists), you must create the Event Grid subscription manually.
 
-> [!NOTE]
-> Once published → the function is live and ready.
+Run the following command:
+```bash
+az eventgrid event-subscription create \
+  --name noncompliant-event-sub \
+  --source-resource-id /subscriptions/<subscription-id>/resourceGroups/my-policy-remediator/providers/Microsoft.PolicyInsights/policyStates/default \
+  --included-event-types Microsoft.PolicyInsights.PolicyStatesChanged \
+  --endpoint-type azurefunction \
+  --endpoint /subscriptions/<subscription-id>/resourceGroups/my-policy-remediator/providers/Microsoft.Web/sites/<function-app-name>/functions/RemediatePolicy
+```
 
-### 4. Validate Event Grid Subscription (optional)
-Azure Portal → Event Grid → Event Subscriptions →
-You should see the subscription → bound to your Azure Function.
+Replace:
 
-Event Type Filter → Microsoft.PolicyInsights.PolicyStatesChanged
+- subscription-id → Your Azure Subscription ID
+- function-app-name → The name of your Azure Function App
 
-> [!NOTE]
-> This means → Any non-compliance will now trigger the Function automatically.
+[!NOTE]
+Event Grid subscription requires the Function to exist and be published. Make sure func azure functionapp publish was completed successfully before running this.
 
 
-### 5. Test end-to-end (optional but recommended)
+### 6. Test end-to-end (optional but recommended)
+
 Create and assign a DeployIfNotExists or Modify Azure Policy without creating remediation task.
 
 Create a non-compliant resource.
 
 Within a few minutes:
 
-> [!NOTE]
-> The Azure Function → triggers → automatically creates remediation task.
+[!NOTE]
+The Azure Function → triggers → automatically creates remediation task.
 
 Check:
 
@@ -135,9 +140,10 @@ From now on:
 - Any new non-compliance → triggers Event Grid → triggers Azure Function → remediation task created → Azure Policy remediates automatically.
 
 ### Notes
-- This solution creates remediation tasks → Azure Policy engine executes them.
-- Managed Identity permissions (Policy Insights Contributor) are granted automatically by Bicep.
+- The solution creates remediation tasks → Azure Policy engine executes them.
+- Managed Identity permissions (Policy Insights Data Writer (Preview)) must be granted manually.
 - Ensure network/RBAC allow the Function to operate.
+- Event Grid subscription must be created manually after function publish to avoid deployment race conditions.
 
 ###  Useful links
 
