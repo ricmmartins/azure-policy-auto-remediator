@@ -2,9 +2,10 @@
   "scriptFile": "run.ps1",
   "bindings": [
     {
-      "name": "eventGridEvent",
-      "type": "eventGridTrigger",
-      "direction": "in"
+      "name": "myTimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 */5 * * * *"
     }
   ]
 }
